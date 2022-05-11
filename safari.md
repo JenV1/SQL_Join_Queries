@@ -79,6 +79,8 @@ Write queries to find:
 
 - The names of staff working in enclosures which are closed for maintenance
 
+```sql
+
 SELECT staff.name, staff.id
 FROM enclosure
 JOIN assignment
@@ -86,8 +88,11 @@ ON enclosure.id = assignment.enclosureid
 JOIN staff
 ON assignment.employeeid = staff.id
 WHERE enclosure.closedformaintenance = true;
+```
 
 - The name of the enclosure where the oldest animal lives. If there are two animals who are the same age choose the first one alphabetically.
+
+```sql
 
 SELECT enclosure.name
 FROM animal
@@ -96,7 +101,11 @@ ON animal.enclosure_id = enclosure.id
 ORDER BY animal.age DESC, animal.name
 LIMIT 1;
 
+```
+
 - The number of different animal types a given keeper has been assigned to work with.
+
+```sql
 
 SELECT COUNT(DISTINCT animal.type)
 FROM staff
@@ -108,7 +117,11 @@ JOIN animal
 ON enclosure.id = animal.enclosure_id
 WHERE staff.id = 1;
 
+```
+
 - The number of different keepers who have been assigned to work in a given enclosure
+
+``` sql
 
 SELECT COUNT(DISTINCT staff.name)
 FROM enclosure
@@ -118,9 +131,16 @@ JOIN staff
 ON assignment.employeeid = staff.id
 WHERE enclosure.id = 4;
 
+```
+
 - The names of the other animals sharing an enclosure with a given animal (eg. find the names of all the animals sharing the big cat field with Tony)
 
-SELECT name FROM animal WHERE enclosure_id = (SELECT enclosure_id FROM animal WHERE animal.id = 3) AND NOT animal.id = 3;
+``` sql
+
+SELECT name FROM animal 
+WHERE enclosure_id = (SELECT enclosure_id FROM animal WHERE animal.id = 3) AND NOT animal.id = 3;
+
+```
 
 ## Hints
 
